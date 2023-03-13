@@ -1,0 +1,4 @@
+digraph pila{
+rankdir=LR;
+node[shape = record]nodo0 [label="|Se acepto a Estudiante\n1/3/2023  20:11|Se rechazó a Estudiante\n1/3/2023  20:11|Se rechazó a Estudiante\n1/3/2023  20:10|Se acepto a Estudiante\n1/3/2023  20:10|Se acepto a Estudiante\n1/3/2023  20:10"]; 
+}

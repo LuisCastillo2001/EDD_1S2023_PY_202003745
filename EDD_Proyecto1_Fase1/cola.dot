@@ -1,0 +1,23 @@
+digraph cola{
+rankdir=LR;
+node[shape = record];
+nodonull2[label="null"];
+nodo0[label="{Lourdes Reyes|201902259 }"];
+nodo1[label="{Alejandro Caballeros|201903549 }"];
+nodo2[label="{Jonatan Gonzalez|201900570 }"];
+nodo3[label="{Kevyn Giron|201700653 }"];
+nodo4[label="{Eduardo Cuevas|202004703 }"];
+nodo5[label="{Roberto Gomez|202000544 }"];
+nodo6[label="{Sebastian Godoy|202002940 }"];
+nodo7[label="{Juan Augusto|201801683 }"];
+nodo8[label="{Bryan Montepeque|201700375 }"];
+nodo0->nodo1;
+nodo1->nodo2;
+nodo2->nodo3;
+nodo3->nodo4;
+nodo4->nodo5;
+nodo5->nodo6;
+nodo6->nodo7;
+nodo7->nodo8;
+nodo8->nodonull2;
+}

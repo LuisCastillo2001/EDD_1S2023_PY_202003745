@@ -1,0 +1,22 @@
+{ 
+       "alumnos":[
+            {
+                "nombre":"Ebany Larios",
+                "carnet":201403877,
+                "contraseña":"qwerty12",
+                "Carpeta raíz":"/"
+            },
+            {
+                "nombre":"estudiante ingenieria",
+                "carnet":895,
+                "contraseña":"6321",
+                "Carpeta raíz":"/"
+            },
+            {
+                "nombre":"estudiante usac",
+                "carnet":123,
+                "contraseña":"12345",
+                "Carpeta raíz":"/"
+            }
+]
+}
