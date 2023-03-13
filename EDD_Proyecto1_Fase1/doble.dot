@@ -1,0 +1,29 @@
+digraph listaAlumnos{
+    fontname="Arial,sans-serif" 
+    node [fontname="Helvetica,Arial,sans-serif" shape=box style=filled fillcolor="red"] 
+    layout=dot 
+    label="Lista de estudiantes" 
+    labelloc = t 
+    edge [weight=1000 style="filled" color="blue"] 
+    splines=ortho; 
+    nodesep=0.6; "201403877"[ 
+    fillcolor="#DEDE16" 
+    fontsize="13" 
+    shape=plain 
+    label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="5"><tr> <td align="center">Se inicio sesión<br/>1/3/2023  20:13</td></tr>\n<tr> <td align="center">Se inicio sesión<br/>1/3/2023  20:13</td></tr>\n</table>> 
+		]"895"[ 
+    fillcolor="#DEDE16" 
+    fontsize="13" 
+    shape=plain 
+    label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="5"><tr> <td align="center">Se inicio sesión<br/>1/3/2023  20:13</td></tr>\n</table>> 
+		]"123"[ 
+    fillcolor="#DEDE16" 
+    fontsize="13" 
+    shape=plain 
+    label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="5"><tr> <td align="center"><br/>\n</table>> 
+		]
+rank = same {"201403877\nEbany Larios"->"895\nestudiante ingenieria"->"123\nestudiante usac"}
+"123\nestudiante usac"->"895\nestudiante ingenieria"->"201403877\nEbany Larios"
+"201403877\nEbany Larios"->"201403877"
+"895\nestudiante ingenieria"->"895"
+"123\nestudiante usac"->"123"}
