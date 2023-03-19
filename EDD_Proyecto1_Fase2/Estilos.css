@@ -36,7 +36,7 @@
 .contenedor-decoracion{
     
     background-image: url("g.png");
-    background-attachment: static;
+    background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: 15%;
     
@@ -100,7 +100,7 @@ form{
 
 
 
-@media screen and (max-width:850px) {
+@media screen and (max-width:600px) {
     .contenedor-principal{
         display: grid;
         grid-template-columns: 50% 50%;
