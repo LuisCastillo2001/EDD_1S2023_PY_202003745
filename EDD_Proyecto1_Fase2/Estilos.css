@@ -36,7 +36,7 @@
 .contenedor-decoracion{
     
     background-image: url("g.png");
-    background-attachment: fixed;
+    background-attachment:initial;
     background-repeat: no-repeat;
     background-position: 15%;
     
