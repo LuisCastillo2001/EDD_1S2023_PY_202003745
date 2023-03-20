@@ -85,7 +85,7 @@ form{
 }
 
 
-.formulario input[type = "submit"]{
+.formulario input[type = "button"]{
     margin-top: 50px;
     margin-left: 40%;
     background: transparent;
@@ -99,7 +99,7 @@ form{
     font-family: "MV Boli", cursive;
 }
 
-input[type="submit"]:hover {
+input[type="button"]:hover {
   background-image: linear-gradient(to bottom, #3E8E41, #4CAF50);
 }
 
