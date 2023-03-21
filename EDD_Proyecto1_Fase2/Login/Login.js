@@ -5,7 +5,7 @@ function Redirected(){
        
        
         
-        let localización = window.location.href.replace("Login/Login.html","admin/otro.html")
+        let localización = window.location.href.replace("Login/Login.html","admin/Admin.html")
         console.log(localización)
         window.alert("No")
         window.location.href = localización
