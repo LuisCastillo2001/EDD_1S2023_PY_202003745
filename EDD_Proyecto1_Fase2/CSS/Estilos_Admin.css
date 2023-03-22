@@ -1,0 +1,40 @@
+
+.contenedor{
+    margin-top: 15%;
+   
+}
+
+.row{
+    height: 500px;
+    border: 2px solid blue;
+}
+
+.col{
+    border:2px solid black;
+}
+
+.contenedor-tabla{
+    height: 200px;
+    border: 2px solid;
+    width: 30%;
+    margin-left: 30%;
+    margin-top: 10%;
+    
+    
+}
+table:hover{
+    scale: 1.5;
+}
+
+.contenedor-botones{
+    margin-top: 40%;
+    display: inline-block;
+    border: 2px solid salmon;
+}
+
+@media (max-width: 660px){
+    .contenedor-tabla{
+        margin-left: 0%;
+    }
+}
+

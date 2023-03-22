@@ -4,7 +4,7 @@ function Redirected(){
     if (usuario == "admin"&& contraseña == "admin"){
        
         
-        let localización = window.location.href.replace("Login.html","otro.html")
+        let localización = window.location.href.replace("Login.html","Admin.html")
 
 
         console.log(localización)
