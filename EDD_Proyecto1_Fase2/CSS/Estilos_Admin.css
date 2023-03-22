@@ -1,40 +1,110 @@
 
+
+body{
+    background: #159957;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #155799, #159957);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #155799, #159957); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+}
+
+.contenedor-admin{
+    height: 100px;
+    
+    color: white;
+    background: #16222A;  /* fallback for old browsers */
+
+
+}
+
 .contenedor{
     margin-top: 15%;
    
 }
 
 .row{
-    height: 500px;
-    border: 2px solid blue;
+    height: 70%;
+    
 }
 
-.col{
-    border:2px solid black;
-}
 
 .contenedor-tabla{
     height: 200px;
     border: 2px solid;
     width: 30%;
-    margin-left: 30%;
+    color: white;
     margin-top: 10%;
+    width: 300px;
+    overflow-y: scroll;
+    
+   
     
     
 }
-table:hover{
-    scale: 1.5;
+
+table{
+    
+    background: #005C97;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
 }
+
 
 .contenedor-botones{
-    margin-top: 40%;
+
     display: inline-block;
-    border: 2px solid salmon;
+    margin-bottom: 100px;
+    padding: 10px;
 }
 
-@media (max-width: 660px){
+.btn{
+    margin-left: 20%;
+    margin-top: 45px;
+    display: block;
+ 
+}
+
+.boton{
+    height: 10px;
+}
+
+
+
+
+@media (max-width:1000px){
+   
     .contenedor-tabla{
-        margin-left: 0%;
+        margin-left: 5%;
     }
 }
+
+button {
+    background-color: white;
+    color: black;
+    border-radius: 10em;
+    font-size: 17px;
+    font-weight: 600;
+   
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid black;
+    box-shadow: 0 0 0 0 black;
+    width: 200px;
+  }
+  
+  button:hover {
+    transform: translateY(-4px) translateX(-2px);
+    box-shadow: 2px 5px 0 0 black;
+  };
+  
+  button:active {
+    transform: translateY(2px) translateX(1px);
+    box-shadow: 0 0 0 0 black;
+  };
+  
+
+
+  
+
 
