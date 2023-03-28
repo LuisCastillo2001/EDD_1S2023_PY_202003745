@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../CSS/Estilos_Admin.css">
-    <link rel="stylesheet" href="../CSS/Estilos_Animaciones.css">
+   
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     
@@ -26,7 +26,8 @@
         <h3 style="margin-top: 15%;"class="bi bi-person-fill">  Administrador</h3>
       </div>
      
-        <button type="button" class="bi bi-box-arrow-left"class="btn btn-primary" style="height: 50px; margin-top: 2%; width: 110px;"> Salir</button>
+        <button type="button" class="bi bi-box-arrow-left"class="btn btn-primary"
+        onclick="Salir()" style="height: 50px; margin-top: 2%; width: 110px;"> Salir</button>
      
     </div>
     </div>
@@ -34,16 +35,23 @@
         <div class = "row">
             <div class = "col col-md ">
                 <div class = "container-md contenedor-botones">
-                    <button type="button" class="btn btn-primary">Seleccionar orden</button>
-                    <button type="button" class="btn btn-primary" >Carga Masiva</button>
-                    <button type="button" class="btn btn-primary">Reportes</button>
-                    <button type="button" class="btn btn-primary">Mostrar árbol</button>
+                 
+                  <select id="my-dropdown" class="btn btn-primary" style="width: 300px;" onchange="mostrar()">
+                    <option value="In-orden">In-orden</option>
+                    <option value="Post-orden">Post-Orden</option>
+                    <option value="Pre-orden">Pre-orden</option>
+                  </select>
+                    <input type="file" name = "archivo" id="archivo"
+                    class="form-control" id="inputGroupFile01" style="width: 300px; margin-left: 10%;
+                    margin-top: 30px; background-color: #007bff;" accept="application/json"></input>
+                   
+                  
                    
                 </div>
             </div>
             <div class="col col-md">
 
-                <table class="table contenedor-tabla">
+                <table class="table contenedor-tabla" id = "tabla-alumnos">
                     <h3 style="color: white;">Listado de alumnos</h3>
                     <thead>
                       <tr>
@@ -53,32 +61,19 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        
-                        <td>Luis</td>
-                        <td>202003745</td>
-                        
-                      </tr>
-                      <tr>
-                        <td>Jessica</th>
-                        <td>202003747</td>
-                        
-                      </tr>
-                      <tr>
-                        <td>Daniel</th>
-                        <td>23451233</td>
-                      </tr>
-                       <tr>
-                        <td>Daniel</th>
-                        <td>23451233</td>
-                      </tr>
+                  
                     </tbody>
                   </table>
 
             </div>
         </div>
       </div>
-      
-
+    <div class="container text-center" id = "avl" style="margin-top: 120px;">
+      <div class="row" style="border: 3px dashed #007bff;">
+      <h3 style="color: white;">Árbol AVL</h3>
+      <img id = "arbol" class = "img-fluid" style="height: 500px;">
+    </div>
+    </div>
+  <script src="../JS/Admin.js"></script>
 </body>
 </html>
