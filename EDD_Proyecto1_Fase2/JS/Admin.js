@@ -25,7 +25,7 @@ class nodoArbol {
       this.nombre = nombre;
       this.carpeta_raiz = carpeta_raiz
       this.contraseña = contraseña
-      this.matriz = null
+      this.nario = null
       this.altura = 1;
       this.factor_equilibrio = 0;
   }

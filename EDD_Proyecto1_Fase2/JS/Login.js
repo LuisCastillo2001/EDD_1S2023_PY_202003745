@@ -12,10 +12,15 @@ function Redirected(){
     }else{
         carnet = parseInt(usuario)
         usuario_log = verificar(carnet,contraseña)
-        if (usuario_log === 1){
-            window.alert("Usuario encontrado con éxito")
+        if (usuario_log !==null){
+            localStorage.setItem("usuario",JSON.stringify(usuario_log))
+            window.alert("Usuario encontrado con dféxitsso")
+            
+            
+            let localización = window.location.href.replace("Login.html","Usuario.html")
+            window.location.href = localización
         }else{
-            window.alert("El usuario no existe")
+            window.alert("El usuario no exsiste")
         }
     }
 }
@@ -25,32 +30,26 @@ function verificar(carnet,contraseña){
     arbol = JSON.parse(localStorage.getItem('arbol'))
     carnet = carnet
     contraseña = contraseña
-    usuario = recorridoInorden(arbol.raiz,carnet,contraseña)
-    if (usuario === 1){
-        return 1
+    usuario = buscar(arbol.raiz,carnet,contraseña)
+    if (usuario !== null){
+        return usuario
     }else{
-        return 0
+        return null
     }
     
 }
 
 
-function recorridoInorden(raiz,carnet,contraseña){
-    var cadena = ""
-    if(raiz !== null){
-        if(raiz.izquierdo !== null){
-            cadena += this.recorridoInorden(raiz.izquierdo)
-            cadena += " -> "
-        }
-        cadena += "\""
-        cadena += raiz.carnet
-        if (raiz.carnet == carnet && raiz.contraseña == contraseña){
-            return 1
-        }
-        if(raiz.derecho !== null){
-            cadena += " -> "
-            cadena += this.recorridoInorden(raiz.derecho)
-        }
+function buscar(nodo, carnet, contrasena) {
+    if (nodo === null) {
+      return null; 
+    } else if (carnet < nodo.carnet) {
+      return buscar(nodo.izquierdo, carnet, contrasena); 
+    } else if (carnet > nodo.carnet) {
+      return buscar(nodo.derecho, carnet, contrasena); 
+    } else if (contrasena === nodo.contraseña) {
+      return nodo; 
+    } else {
+      return null;
     }
-    return 0
-}
+  }
