@@ -7,12 +7,27 @@ const cart = usuario.carnet
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+//árbol n-ario
+
+
 class nodoArbol{
     constructor(valor, id){
         this.siguiente = null;
         this.valor = valor;
         this.primero = null;
         this.id = id;
+        this.matriz = null
     }
 }
 
@@ -246,7 +261,7 @@ class ArbolNArio{
                 window.alert("La ruta actual no existe")
                 break;
             case 4:
-                window.alert("La ruta actual no es válida")
+                console.log(".")
 
             case 5:
                 this.insertarHijos(carpeta_nueva,lista_carpeta)
@@ -282,7 +297,7 @@ class ArbolNArio{
                 }
             
                 anterior.siguiente = aux.siguiente;
-                console.log(this.raiz)
+                window.alert("Carpeta Eliminada con éxito")
             }
                
         }
@@ -312,8 +327,7 @@ class ArbolNArio{
             //Cambiar aquí
             if(aux !== null){
                
-                console.log(".......")
-                console.log(aux.primero.valor)
+                
                 if (aux.primero.valor === carpeta_eliminar){
                     aux.primero = aux.primero.siguiente
                     console.log(this.raiz)
@@ -332,7 +346,7 @@ class ArbolNArio{
                     }
                 
                     anterior.siguiente = aux2.siguiente;
-                    console.log(this.raiz)
+                    window.alert("Carpeta eliminada con éxito")
                 }
 
                 
@@ -346,6 +360,67 @@ class ArbolNArio{
     valuar(raiz){
         this.raiz = raiz
     }
+
+
+    grafica_arbol(){
+        var cadena = "";
+        if(!(this.raiz === null)){
+            cadena = "digraph arbol{ ";
+            cadena = cadena + this.retornarValoresArbol(this.raiz);
+            cadena = cadena + "}";
+        }else{
+            cadena = "digraph G { arbol }";
+        }
+        return cadena;
+    }
+
+    retornarValoresArbol(raiz){
+        var cadena = "node[shape=record] ";
+        let nodo = 1;
+        let nodo_padre = 0;
+        cadena += "nodo" + nodo_padre + "[label=\"" + this.raiz.valor  + "\"] "
+        cadena += this.valoresSiguietes(this.raiz.primero, nodo, nodo_padre)
+        cadena += this.conexionRamas(this.raiz.primero, 0)
+        return cadena;
+    }
+
+
+    valoresSiguietes(raiz, nodo, nodo_padre){
+        let cadena = ""
+        let aux = raiz
+        let nodo_padre_aumento = nodo_padre
+        if(aux !== null){
+            while(aux){
+                cadena += "nodo" + aux.id + "[label=\"" + aux.valor  + "\"] "
+                aux = aux.siguiente
+            }
+            aux = raiz
+            while(aux){
+                nodo_padre_aumento++
+                cadena += this.valoresSiguietes(aux.primero, this.nodo_creados, nodo_padre_aumento)
+                aux = aux.siguiente
+            }
+        }
+        return cadena
+    }
+
+    conexionRamas(raiz, padre){
+        let cadena = ""
+        let aux = raiz
+        if(aux !== null){
+            while(aux){
+                cadena += "nodo" + padre + " -> nodo" + aux.id + " "
+                aux = aux.siguiente
+            }
+            aux = raiz
+            while(aux){
+                cadena += this.conexionRamas(aux.primero, aux.id)
+                aux = aux.siguiente
+            }
+        }
+        return cadena
+    }
+
 
 }
 
@@ -376,6 +451,7 @@ function agregarVarios(){
     cambio.nario = arbolnario
     localStorage.setItem("arbol",JSON.stringify(arbol))
     console.log(arbolnario)
+    refrescarArbol()
     
 
 }
@@ -383,6 +459,7 @@ function agregarVarios(){
 
 if (usuario.nario !== null){
     arbolnario.valuar(usuario.nario.raiz)
+    refrescarArbol()
 }
 
 function buscar(nodo, carnet) {
@@ -407,6 +484,7 @@ function mostrarCarpetas(){
     console.log(arbolnario)
     document.getElementById("Mostrador").innerHTML = ""
     arbolnario.mostrarCarpetasActuales(ruta)
+    refrescarArbol()
 }
 
 
@@ -415,5 +493,20 @@ function eliminar(){
     let carpeta_eliminar = document.getElementById("eliminacion").value
     
     arbolnario.Eliminar_carpeta(ruta,carpeta_eliminar)
+    usuario.nario = arbolnario
+    localStorage.setItem("usuario",JSON.stringify(usuario))
+    cambio = buscar(arbol.raiz,cart)
+    cambio.nario = arbolnario
+    localStorage.setItem("arbol",JSON.stringify(arbol))
     
 }
+
+
+function refrescarArbol(){
+    let url = 'https://quickchart.io/graphviz?graph=';
+    let body = arbolnario.grafica_arbol();
+    console.log(url+body)
+    console.log("c")
+    document.getElementById("n-ario").src = url+body
+    
+  }

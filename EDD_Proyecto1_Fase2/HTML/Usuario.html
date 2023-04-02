@@ -39,6 +39,20 @@
                         <input type="text" class="form-control" placeholder="Nombre" aria-label="Username" 
                         aria-describedby="basic-addon1" id = "carpeta">
                     </div>
+
+                    <input type="file" name = "archivo" id="archivo"
+                    class="form-control" id="inputGroupFile01" style="width: 300px; margin-left: 5px;
+                    margin-top: 30px; background-color: #007bff;" accept="application/json"></input>
+                    
+                    <div class="input-group mb-3 " style="margin-top: 20px;">
+                        <span class="input-group-text" id="basic-addon1" >
+                            <button type="button" class="btn btn-primary boton" style="margin-top: 5px; margin-left: 5px;"
+                            onclick="">Otorgar permiso</button>
+                             
+                        </span>
+                        <input type="text" class="form-control" placeholder="Ej: 202003745-rw" aria-label="Username" 
+                        aria-describedby="basic-addon1" id = "otorgar" style="font-size: 11px;">
+                    </div>
                 </div>
             </div>
 
@@ -62,11 +76,39 @@
                    
                 </div>
 
-                <button type="button" class="btn btn-primary boton"> Reporte carpetas</button>
+                <button type="button" class="btn btn-primary boton" data-bs-toggle="modal" data-bs-target="#myModal">
+                    Reporte carpetas
+                </button>
                 <button type="button" class="btn btn-primary boton"> Reporte Archivos</button>
                 </div>
                 
             </div>
+        </div>
+    </div>
+
+
+    
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+        <div class="modal-content">
+    
+            
+            <div class="modal-header">
+            <h4 class="modal-title">Reporte Carpetas</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+    
+           
+            <div class="modal-body">
+            <img id = "n-ario" class = "img-fluid" style="height: 500px;">
+            </div>
+    
+            
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+    
+        </div>
         </div>
     </div>
     <script src="../JS/Usuario.js"></script>
