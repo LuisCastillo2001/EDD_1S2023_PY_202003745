@@ -4,17 +4,14 @@ function Redirected(){
     if (usuario == "admin"&& contraseña == "admin"){
        
         
-        let localización = window.location.href.replace("Login.html","Admin.html")
-
-
-        
-        window.location.href = localización
+      let localización = window.location.href.replace("Admin.html","Login.html")
+      window.location.href = localización
     }else{
         carnet = parseInt(usuario)
         usuario_log = verificar(carnet,contraseña)
         if (usuario_log !==null){
             localStorage.setItem("usuario",JSON.stringify(usuario_log))
-            window.alert("Usuario encontrado con dféxitsso")
+            window.alert("Usuario encontrado con éxito")
             
             
             let localización = window.location.href.replace("Login.html","Usuario.html")

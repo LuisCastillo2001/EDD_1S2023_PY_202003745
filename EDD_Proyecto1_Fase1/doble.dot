@@ -1,1 +1,7 @@
-digraph arbol{ node[shape=record] nodo0[label="/"] nodo1[label="Documentos2"] nodo1[label="Documentos3"] nodo1[label="Liususis"] nodo1[label="Luis"] nodo0 -> nodo1 nodo0 -> nodo1 nodo0 -> nodo1 nodo0 -> nodo1 }
+digraph ListaCircular{ 
+ node[shape = square]; 
+ rankdir = LR 
+nodo1[label ="Accion:Se creo carpeta\nDocumentos\nFecha:4/4/2023\nHora:16:50:31"]
+nodo2[label ="Accion:Se creo carpeta\nImagenes\nFecha:4/4/2023\nHora:16:50:36"]
+nodo1->nodo2
+}

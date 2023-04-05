@@ -1,10 +1,338 @@
-
 let usuario = JSON.parse(localStorage.getItem('usuario'))
 let arbol = JSON.parse(localStorage.getItem("arbol"))
+
+
+
+
 document.getElementById("Bienvenido").innerHTML = "Bienvenido"+"<br>"+usuario.carnet
 
 const cart = usuario.carnet
 
+//bitacora
+
+
+class Nodobitacora{
+    constructor(accion,archivo,hora,fecha){
+        this.accion = accion
+        this.archivo = archivo
+        this.hora = hora
+        this.fecha = fecha
+        this.siguiente = null
+    }
+    
+}
+
+
+
+
+
+class Bitacora{
+    constructor (){
+        this.raiz = null
+    }
+
+
+    Insercion(accion,archivo,hora,fecha){
+        if (this.raiz === null){
+            this.raiz = new Nodobitacora(accion,archivo,hora,fecha)
+        }
+        else{
+            let aux = this.raiz
+            while (aux.siguiente !== null){
+                aux = aux.siguiente
+            }
+
+            aux.siguiente = new Nodobitacora(accion,archivo,hora,fecha)
+        }
+    }
+
+    Graficar(){
+        let aux = this.raiz
+        let cadena = "digraph ListaCircular{ \n node[shape = square]; \n rankdir = LR \n"
+        let contador = 1
+        while (aux){
+            cadena += "nodo" + contador 
+            cadena += '[label ="Accion:'+aux.accion+"\\n"
+            cadena+= aux.archivo + "\\n"
+            cadena += "Fecha:"+aux.fecha+"\\n"
+            cadena += "Hora:"+aux.hora+'"'+"]"+"\n"
+            contador++
+            aux = aux.siguiente
+        }
+        aux = this.raiz
+        contador = 1
+        while (aux){
+            if (aux.siguiente === null){
+                cadena+= "nodo"+contador
+                break
+            }
+            cadena+= "nodo"+contador+"->"
+            aux = aux.siguiente
+            contador++
+        }
+        cadena += "\n" + "}"
+        return cadena
+    }
+}
+
+
+//Matriz
+
+
+
+class nodoMatriz{
+    constructor(posX, posY, nombre_archivo){
+        this.siguiente = null;
+        this.anterior = null;
+        this.abajo = null;
+        this.arriba = null;
+        this.posX = posX;
+        this.posY = posY;
+        this.posicion = nombre_archivo;
+    }
+}
+
+class Matriz{
+    constructor(nombre){
+        this.principal = new nodoMatriz(-1,-1,nombre)
+        this.coordenadaY = 0;
+        this.coordenadaX = 0;
+    }
+
+    buscarF(nombre_archivo){
+        let aux = this.principal
+        while(aux){
+            /**if(aux.posY === y) */
+            if(aux.posicion === nombre_archivo){
+                return aux;
+            }else{
+                aux = aux.abajo;
+            }
+        }
+        return null;
+    }
+
+    buscarC(carnet){
+        let aux = this.principal;
+        while(aux){
+            /**if(aux.posX === x) */
+            if(aux.posicion === carnet){
+                return aux;
+            }else{
+                aux = aux.siguiente
+            }
+        }
+        return null;
+    }
+
+    insertarColumna(posicion,texto){
+        const nuevoNodo = new nodoMatriz(posicion,-1,texto);
+        let piv = this.principal;
+        let pivA = this.principal;
+        while(piv.siguiente){
+            if(nuevoNodo.posX > piv.posX){
+                pivA = piv;
+                piv = piv.siguiente
+            }else{
+                nuevoNodo.siguiente = piv;
+                nuevoNodo.anterior = pivA;
+                pivA.siguiente = nuevoNodo;
+                piv.anterior = nuevoNodo;
+                return;
+            }
+        }
+        nuevoNodo.anterior = piv;
+        piv.siguiente = nuevoNodo;
+    }
+
+    insertarFila(posicion,texto){
+        const nuevoNodo = new nodoMatriz(-1,posicion,texto);
+        let piv = this.principal;
+        let pivA = this.principal;
+        while(piv.abajo){
+            if(nuevoNodo.posY > piv.posY){
+                pivA = piv;
+                piv = piv.abajo;
+            }else{
+                nuevoNodo.abajo = piv;
+                nuevoNodo.arriba = pivA;
+                pivA.abajo = nuevoNodo;
+                piv.arriba = nuevoNodo;
+                return;
+            }
+        }
+        nuevoNodo.arriba = piv;
+        piv.abajo = nuevoNodo;
+    }
+    
+    insertarNodo(x,y,texto){
+        const nuevoNodo = new nodoMatriz(x,y,texto);
+        let tempX = this.principal;
+        let tempY = this.principal;
+        //Agregar en Columna
+        while(tempX.siguiente){
+            if(tempX.posX === nuevoNodo.posX){
+                break;
+            }
+            tempX = tempX.siguiente;
+        }
+        while(true){
+            if(tempX.posY === nuevoNodo.posY){
+                break;
+            }else if(tempX.abajo !== null && tempX.abajo.posY > nuevoNodo.posY){
+                nuevoNodo.abajo = tempX.abajo;
+                nuevoNodo.arriba = tempX;
+                tempX.abajo = nuevoNodo;
+                break;
+            }else if(tempX.abajo === null){
+                nuevoNodo.arriba = tempX
+                nuevoNodo.abajo = tempX.abajo
+                tempX.abajo = nuevoNodo;
+                break;
+            }else{
+                tempX = tempX.abajo;
+            }
+        }
+        //Agregar en Fila
+        while(tempY.abajo){
+            if(tempY.posY === nuevoNodo.posY){
+                break;
+            }
+            tempY = tempY.abajo;
+        }
+        while(true){
+            if(tempY.posX === nuevoNodo.posX){
+                break;
+            }else if(tempY.siguiente !== null && tempY.siguiente.posX > nuevoNodo.posX){
+                nuevoNodo.siguiente = tempY.siguiente;
+                nuevoNodo.anterior = tempY;
+                tempY.siguiente = nuevoNodo;
+            }else if(tempY.siguiente === null){
+                nuevoNodo.anterior = tempY;
+                nuevoNodo.siguiente = tempY.siguiente;
+                tempY.siguiente = nuevoNodo;
+            }else{
+                tempY = tempY.siguiente;
+            }
+        }
+    }
+
+    insertarElemento(x,y){
+        let texto = x + "," + y;
+        let nuevaFila = this.buscarF(y);
+        let nuevaColumna = this.buscarC(x);
+        /** Fila y Columna no existen */
+        if(nuevaFila === null && nuevaColumna === null){
+            this.insertarColumna(x, "C"+x);
+            this.insertarFila(y, "F"+y);
+            this.insertarNodo(x,y,texto);
+        }else if(nuevaFila === null && nuevaColumna !== null){ /* Fila no existe, Columna si existe */
+            this.insertarFila(y,"F"+y);
+            this.insertarNodo(x,y,texto);
+        }else if(nuevaFila !== null && nuevaColumna === null){/* Fila si existe, Columna no existe */
+            this.insertarColumna(x, "C"+x);
+            this.insertarNodo(x,y,texto);
+        }else if(nuevaFila !== null && nuevaColumna !== null){/* Fila si existe, Columna si existe */
+            this.insertarNodo(x,y,texto);
+        }else{
+            console.log("Me dio Ansiedad :(");
+        }
+    }
+
+    insertarArchivo(texto, numero){
+        let nuevaFila = this.buscarF(texto)
+        if(nuevaFila === null){
+            this.insertarFila(this.coordenadaY,texto)
+            this.coordenadaY++
+        }else{
+            let copia_archivo = "(" + (numero++) + ")" + nombreArchivo
+            this.insertarArchivo(copia_archivo, numero)
+        }
+    }
+
+    colocarPermiso(archivo, carnet, permisos){
+        /** NOTA: Paso Previo Buscar en AVL si existe el carnet*/
+        let nuevaColumna = this.buscarC(carnet)
+        let nuevaFila = this.buscarF(archivo)
+        if (nuevaFila === null){
+            window.alert("El permiso no pudo ser otorgado")
+            return
+        }
+        if(nuevaColumna === null){
+            this.insertarColumna(this.coordenadaX, carnet)
+            this.coordenadaX++
+            nuevaColumna = this.buscarC(carnet)
+        }
+        if(nuevaColumna !== null && nuevaFila !== null){
+            this.insertarNodo(nuevaColumna.posX, nuevaFila.posY, permisos)
+        }
+    }
+
+    reporte(){
+        let cadena = "";
+        let aux1 = this.principal;
+        let aux2 = this.principal;
+        let aux3 = this.principal;
+        if(aux1 !== null){
+            cadena = "digraph MatrizCapa{ node[shape=box]  rankdir=UD;  {rank=min; ";
+            /** Creacion de los nodos actuales */
+            while(aux1){
+                cadena += "nodo" + (aux1.posX+1) + (aux1.posY+1) + "[label=\"" + aux1.posicion + "\" ,rankdir=LR,group=" + (aux1.posX+1) + "]; ";
+                aux1 = aux1.siguiente;
+            }
+            cadena += "}"
+            while(aux2){
+                aux1 = aux2;
+                cadena += "{rank=same; ";
+                while(aux1){
+                    cadena += "nodo" + (aux1.posX+1) + (aux1.posY+1) + "[label=\"" + aux1.posicion + "\" ,group=" + (aux1.posX+1) + "]; ";
+                    aux1 = aux1.siguiente;
+                }
+                cadena += "}";
+                aux2 = aux2.abajo;
+            }
+            /** Conexiones entre los nodos de la matriz */
+            aux2 = aux3;
+            while(aux2){
+                aux1 = aux2;
+                while(aux1.siguiente){
+                    cadena += "nodo" + (aux1.posX+1) + (aux1.posY+1) + " -> " + "nodo" + (aux1.siguiente.posX+1) + (aux1.siguiente.posY+1) + " [dir=both];"
+                    aux1 = aux1.siguiente
+                }
+                aux2 = aux2.abajo;
+            }
+            aux2 = aux3;
+            while(aux2){
+                aux1 = aux2;
+                while(aux1.abajo){
+                    cadena += "nodo" + (aux1.posX+1) + (aux1.posY+1) + " -> " + "nodo" + (aux1.abajo.posX+1) + (aux1.abajo.posY+1) + " [dir=both];"
+                    aux1 = aux1.abajo
+                }
+                aux2 = aux2.siguiente;
+            }
+            cadena +=  "}";
+        }else{
+            cadena = "No hay elementos en la matriz"
+        }
+        return cadena;
+    }
+
+
+    recorrerArchivos(){
+        let aux = this.principal.abajo;
+
+        while (aux){
+            document.getElementById("Mostrador").innerHTML += '<div style=" display: inline-block; margin-left:50px">' +
+                    '<img src="../CSS/archivos.jpg" style="height: 80px; width: 80px; display: inline; ">' +
+                    '<p style = "text-align: center width = "50px">'+aux.posicion+'</p>'
+                    '</div>'
+            aux = aux.abajo
+                    
+        }
+        
+
+    }
+}
 
 
 
@@ -28,6 +356,7 @@ class nodoArbol{
         this.primero = null;
         this.id = id;
         this.matriz = null
+        
     }
 }
 
@@ -44,9 +373,10 @@ class ArbolNArio{
             let aux = this.raiz.primero
             while (aux){
                 if (aux.valor === carpeta_nueva){
+                    
                     return 1
                 }
-
+                
                 aux = aux.siguiente
             }
 
@@ -90,13 +420,13 @@ class ArbolNArio{
 
 
     BuscarCarpeta2(lista_carpeta){
-       
+        
         if (lista_carpeta[1] === "" && this.raiz.primero !== null){
             
             return this.raiz
         }
         else if(lista_carpeta[1] === "" && this.raiz.primero === null){
-            return null
+            return this.raiz
         }
         
         else if (lista_carpeta[1]!== "" && this.raiz.primero === null){
@@ -132,6 +462,9 @@ class ArbolNArio{
 
         }
     }
+
+
+    
 
 
     
@@ -219,6 +552,9 @@ class ArbolNArio{
         let carpeta = this.BuscarCarpeta2(lista_carpeta)
         try{
             let aux = carpeta.primero
+
+
+
             if (carpeta !== null){
                 
                 while (aux){
@@ -226,13 +562,18 @@ class ArbolNArio{
                     '<img src="../CSS/carpeta.jpg" style="height: 80px; width: 80px; display: inline; ">' +
                     '<p style = "text-align: center">'+aux.valor+'</p>'
                     '</div>'
-                    console.log(aux.valor)
+                    
                     aux = aux.siguiente
                 }
-                
-            }else{
+                }else{
                 window.alert("La carpeta no existe")
+                }
+
+            if (carpeta.matriz !== null){
+                carpeta.matriz.recorrerArchivos()
             }
+                
+            
             
         } catch(error){
             window.alert("La carpeta no existe")
@@ -246,6 +587,10 @@ class ArbolNArio{
     insertarValor(ruta, carpeta_nueva){
         let lista_carpeta = ruta.split("/")
         let existe_carpeta = this.BuscarCarpeta(carpeta_nueva, lista_carpeta)
+        let fecha = obtenerFecha()
+        let hora = obtenerHora()
+        let accion = "Se creo carpeta"
+        let archivo = carpeta_nueva
 
 
     
@@ -253,18 +598,24 @@ class ArbolNArio{
         switch(existe_carpeta){
             case 1:
                 window.alert("La carpeta ya existe");
+                let nombre = "Copia "+carpeta_nueva
+                this.insertarHijos(nombre, lista_carpeta)
+                InsertarBitacora(accion,archivo,hora,fecha)
                 break;
             case 2:
                 this.insertarHijos(carpeta_nueva, lista_carpeta)
+                InsertarBitacora(accion,archivo,hora,fecha)
                 break
             case 3:
                 window.alert("La ruta actual no existe")
                 break;
             case 4:
-                console.log(".")
+                window.alert("La ruta actual no es válida")
+                break
 
             case 5:
                 this.insertarHijos(carpeta_nueva,lista_carpeta)
+                InsertarBitacora(accion,archivo,hora,fecha)
                 break
         }
 
@@ -276,15 +627,20 @@ class ArbolNArio{
         
         if (carpeta_eliminar === "/"){
             this.raiz = null
-            console.log(this.raiz)
+            window.alert("La carpeta ha sido eliminada con éxito")
+            let fecha = obtenerFecha()
+            let hora = obtenerHora()
+            let accion = "Se elimino carpeta"
+            let archivo = carpeta_eliminar
+            InsertarBitacora(accion,archivo,hora,fecha)
             return
         }
 
         if(lista_carpeta[1] === "" && this.raiz.primero !== null){
-            console.log(this.raiz.primero.valor)
+           
             if (this.raiz.primero.valor === carpeta_eliminar){
                 this.raiz.primero = this.raiz.primero.siguiente
-                console.log(this.raiz)
+                
             }else{
                 let aux = this.raiz.primero
                 let anterior = null
@@ -293,10 +649,16 @@ class ArbolNArio{
                     aux = aux.siguiente;
                 }
                 if (aux == null)  {
+                    window.alert("La carpeta no existe")
                     return null;
                 }
             
                 anterior.siguiente = aux.siguiente;
+                let fecha = obtenerFecha()
+                let hora = obtenerHora()
+                let accion = "Se elimino carpeta"
+                let archivo = carpeta_eliminar
+                InsertarBitacora(accion,archivo,hora,fecha)
                 window.alert("Carpeta Eliminada con éxito")
             }
                
@@ -330,7 +692,7 @@ class ArbolNArio{
                 
                 if (aux.primero.valor === carpeta_eliminar){
                     aux.primero = aux.primero.siguiente
-                    console.log(this.raiz)
+                   
                 //Seguir aquí y no cambiar nada :3
 
                 }else{
@@ -358,7 +720,10 @@ class ArbolNArio{
     
     }
     valuar(raiz){
+        
         this.raiz = raiz
+        
+        
     }
 
 
@@ -372,6 +737,27 @@ class ArbolNArio{
             cadena = "digraph G { arbol }";
         }
         return cadena;
+    }
+
+    colocar(archivo,carnet,permiso){
+        let ruta = document.getElementById("ruta").value
+        let lista_carpeta = ruta.split("/")
+        let carpeta = this.BuscarCarpeta2(lista_carpeta)
+
+        if (carpeta !== null){
+            
+           
+            if (carpeta.matriz !== null){
+                carpeta.matriz.colocarPermiso(archivo,carnet,permiso)
+                let url = 'https://quickchart.io/graphviz?graph=';
+                let body = carpeta.matriz.reporte();
+                document.getElementById("matriz").src = url+body
+            }
+           
+         
+            
+            
+        } 
     }
 
     retornarValoresArbol(raiz){
@@ -422,45 +808,106 @@ class ArbolNArio{
     }
 
 
+    insertarArch(nombre){
+        
+        let ruta = document.getElementById("ruta").value
+        let lista_carpeta = ruta.split("/")
+        let carpeta = this.BuscarCarpeta2(lista_carpeta)
+
+        if (carpeta !== null){
+            
+           
+            if (carpeta.matriz === null){
+                carpeta.matriz = new Matriz(carpeta.valor)
+                carpeta.matriz.insertarArchivo(nombre,1)
+                window.alert("Archivo "+nombre+" subido con éxito")
+                let fecha = obtenerFecha()
+                let hora = obtenerHora()
+                let accion = "Se subió el archivo"
+                let archivo = nombre
+                InsertarBitacora(accion,archivo,hora,fecha)
+                
+                
+                
+            }
+            else{
+                carpeta.matriz.insertarArchivo(nombre,1) 
+                window.alert("Archivo "+nombre+" subido con éxito")
+                
+            }
+         
+            
+            let url = 'https://quickchart.io/graphviz?graph=';
+            let body = carpeta.matriz.reporte();
+            document.getElementById("matriz").src = url+body
+        } 
+    }
+
+
+    refrescarMatriz(){
+        let ruta = document.getElementById("ruta").value
+        let lista_carpeta = ruta.split("/")
+        let carpeta = this.BuscarCarpeta2(lista_carpeta)
+        if (carpeta.matriz === null){
+            document.getElementById("modal2").innerHTML = "No hay suficientes archivos para mostrar el reporte"
+        }else{
+            let url = 'https://quickchart.io/graphviz?graph=';
+            let body = carpeta.matriz.reporte();
+            document.getElementById("matriz").src = url+body
+        }
+    }
+    
+
+    
+
+    
+
 }
 
 
 const arbolnario = new ArbolNArio()
 
-if (usuario.nario !== null){
-    arbolnario.valuar(usuario.nario.raiz)
-    console.log(arbolnario)
     
-}
 
+function InsertarBitacora(accion,archivo,hora,fecha){
+    if (usuario.bitacora === null){
+        usuario.bitacora = new Bitacora()
+        usuario.bitacora.Insercion(accion,archivo,hora,fecha)
+
+    } else{
+        usuario.bitacora.Insercion(accion,archivo,hora,fecha)
+    }
+}
 
 function agregarVarios(){
     let ruta = document.getElementById("ruta").value
     let carpeta = document.getElementById("carpeta").value
-    try{
+    
         arbolnario.insertarValor(ruta,carpeta)
         window.alert("Carpeta creada con éxito")
-    }catch(error){
-        alert("Hubo un error al insertar el nodo")
-    }
+        
+    
+    
     document.getElementById("carpeta").value = "";
-    usuario.nario = arbolnario
-   
-    localStorage.setItem("usuario",JSON.stringify(usuario))
-    cambio = buscar(arbol.raiz,cart)
-    cambio.nario = arbolnario
-    localStorage.setItem("arbol",JSON.stringify(arbol))
-    console.log(arbolnario)
     refrescarArbol()
+    
     
 
 }
 
 
+
+
+
 if (usuario.nario !== null){
+    
     arbolnario.valuar(usuario.nario.raiz)
+    console.log("hola")
     refrescarArbol()
+    
+    
 }
+
 
 function buscar(nodo, carnet) {
     if (nodo === null) {
@@ -480,11 +927,10 @@ function buscar(nodo, carnet) {
 
 function mostrarCarpetas(){
     let ruta = document.getElementById("ruta").value
-    console.log(ruta)
-    console.log(arbolnario)
+    
     document.getElementById("Mostrador").innerHTML = ""
     arbolnario.mostrarCarpetasActuales(ruta)
-    refrescarArbol()
+    
 }
 
 
@@ -493,11 +939,7 @@ function eliminar(){
     let carpeta_eliminar = document.getElementById("eliminacion").value
     
     arbolnario.Eliminar_carpeta(ruta,carpeta_eliminar)
-    usuario.nario = arbolnario
-    localStorage.setItem("usuario",JSON.stringify(usuario))
-    cambio = buscar(arbol.raiz,cart)
-    cambio.nario = arbolnario
-    localStorage.setItem("arbol",JSON.stringify(arbol))
+    refrescarArbol()
     
 }
 
@@ -505,8 +947,112 @@ function eliminar(){
 function refrescarArbol(){
     let url = 'https://quickchart.io/graphviz?graph=';
     let body = arbolnario.grafica_arbol();
-    console.log(url+body)
-    console.log("c")
+    
+   
     document.getElementById("n-ario").src = url+body
     
   }
+
+
+
+
+
+  const inputElement = document.getElementById("archivo");
+  inputElement.addEventListener("change", onChange, false);
+  let nombreArchivo = ""
+  let base64String = ""
+  function onChange(event) {
+    var reader = new FileReader();
+    reader.onload = onReaderLoad;
+    nombreArchivo = event.target.files[0].name
+    reader.readAsDataURL(event.target.files[0]);
+    
+    arbolnario.insertarArch(nombreArchivo)
+    console.log(arbolnario)
+    inputElement.value = ""
+    
+     
+
+      
+  }
+  
+function Matriz1(){
+    arbolnario.refrescarMatriz()
+}
+
+
+function recorridoEnProfundidad(nodo) {
+    console.log(nodo.valor); 
+  
+
+    if (nodo.matriz !== null) {
+        nodo.matriz = null;
+    }
+    if (nodo.siguiente !== null) {
+      recorridoEnProfundidad(nodo.siguiente);
+    }
+  
+    if (nodo.primero !== null) {
+      recorridoEnProfundidad(nodo.primero); 
+    }
+  }
+
+function actualizar (){
+    recorridoEnProfundidad(arbolnario.raiz)
+    console.log(arbolnario)
+    usuario.nario = arbolnario
+    localStorage.setItem("usuario",JSON.stringify(usuario))
+    cambio = buscar(arbol.raiz,cart)
+    cambio.nario = arbolnario
+    cambio.bitacora = usuario.bitacora
+    localStorage.setItem("arbol",JSON.stringify(arbol))
+    console.log(usuario)
+    let localización = window.location.href.replace("Usuario.html","Login.html")
+    window.location.href = localización
+    
+}
+
+function asignarPermisos(){
+    let carnet = document.getElementById("carne_user").value
+    let archivo = document.getElementById("arch").value
+    let permisos = document.getElementById("permiso").value
+    console.log(carnet)
+    console.log(archivo)
+    console.log(permisos)
+    let existe = buscar(arbol.raiz,parseInt(carnet))
+    if (existe === null){
+        window.alert("El alumno no existe, por lo tanto no se puede otorgar el permiso")
+        return
+    }
+    arbolnario.colocar(archivo,parseInt(carnet),permisos)
+    
+}
+
+function obtenerFecha(){
+    const tiempoTranscurrido = Date.now();
+    const hoy = new Date(tiempoTranscurrido)
+    let fecha = hoy.toLocaleDateString();
+    return fecha
+}
+
+function obtenerHora(){
+    let today = new Date();
+    let now = today.toLocaleTimeString();
+    return now
+}
+
+
+function Grafbita(){
+    let url = 'https://quickchart.io/graphviz?graph=';
+    let body = usuario.bitacora.Graficar()
+    console.log(body)
+    
+   
+    document.getElementById("Bitacora").src = url+body
+    
+}
+
+  function onReaderLoad(event){
+      base64String = event.target.result
+  }
+
