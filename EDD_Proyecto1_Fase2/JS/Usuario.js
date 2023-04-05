@@ -50,6 +50,9 @@ class Bitacora{
         let aux = this.raiz
         let cadena = "digraph ListaCircular{ \n node[shape = square]; \n rankdir = LR \n"
         let contador = 1
+        if (this.raiz === null){
+            return null
+        }
         while (aux){
             cadena += "nodo" + contador 
             cadena += '[label ="Accion:'+aux.accion+"\\n"
@@ -70,7 +73,9 @@ class Bitacora{
             aux = aux.siguiente
             contador++
         }
-        cadena += "\n" + "}"
+        
+        cadena+= "->nodo1"
+        cadena+= "\n}"
         return cadena
     }
 
@@ -270,6 +275,8 @@ class Matriz{
         if(nuevaColumna !== null && nuevaFila !== null){
             this.insertarNodo(nuevaColumna.posX, nuevaFila.posY, permisos)
         }
+
+        window.alert("Permiso colocado con éxito")
     }
 
     reporte(){
@@ -431,6 +438,10 @@ class ArbolNArio{
     }
 
     BuscarCarpeta2(lista_carpeta){
+
+        if (this.raiz === null){
+            return null
+        }
         
         if (lista_carpeta[1] === "" && this.raiz.primero !== null){
             
@@ -640,8 +651,11 @@ class ArbolNArio{
     Eliminar_carpeta(ruta_esp, carpeta_eliminar){
         let lista_carpeta = ruta_esp.split("/")
         
+
+        try{
+
         if (carpeta_eliminar === "/"){
-            this.raiz = null
+            this.raiz.primero = null
             window.alert("La carpeta ha sido eliminada con éxito")
             let fecha = obtenerFecha()
             let hora = obtenerHora()
@@ -746,8 +760,9 @@ class ArbolNArio{
             }
         }
 
-        
-    
+    } catch(error){
+        window.alert("Hubo un error al eliminar la carpeta, verifique que la ruta sea válida")
+    }
     
     }
     valuar(raiz){
@@ -784,7 +799,9 @@ class ArbolNArio{
                 let body = carpeta.matriz.reporte();
                 document.getElementById("matriz").src = url+body
             }
-           
+            else{
+                window.alert("Esta carpeta no tiene ningún documento")
+            }
          
             
             
@@ -864,6 +881,11 @@ class ArbolNArio{
             else{
                 carpeta.matriz.insertarArchivo(nombre,1) 
                 window.alert("Archivo "+nombre+" subido con éxito")
+                let fecha = obtenerFecha()
+                let hora = obtenerHora()
+                let accion = "Se subió el archivo"
+                let archivo = nombre
+                InsertarBitacora(accion,archivo,hora,fecha)
                 
             }
          
@@ -1081,10 +1103,16 @@ function obtenerHora(){
 function Grafbita(){
     let url = 'https://quickchart.io/graphviz?graph=';
     let body = bitacora.Graficar()
-    console.log(body)
+    if (body === null){
+        window.alert("No se puede realizar el reporte de la bitácora")
+    }else{
+        console.log(body)
+        document.getElementById("Bitacora").src = url+body
+    }
+   
     
    
-    document.getElementById("Bitacora").src = url+body
+   
     
 }
 

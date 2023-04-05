@@ -1,7 +1,10 @@
 digraph ListaCircular{ 
  node[shape = square]; 
  rankdir = LR 
-nodo1[label ="Accion:Se creo carpeta\nDocumentos\nFecha:4/4/2023\nHora:16:50:31"]
-nodo2[label ="Accion:Se creo carpeta\nImagenes\nFecha:4/4/2023\nHora:16:50:36"]
-nodo1->nodo2
+nodo1[label ="Accion:Se creo carpeta\nDocumentos\nFecha:5/4/2023\nHora:10:54:31"]
+nodo2[label ="Accion:Se creo carpeta\nPersona5\nFecha:5/4/2023\nHora:10:54:37"]
+nodo3[label ="Accion:Se creo carpeta\nPersona5\nFecha:5/4/2023\nHora:10:54:37"]
+
+nodo1->nodo2 ->nodo3->nodo1
+
 }
