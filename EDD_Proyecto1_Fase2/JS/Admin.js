@@ -134,46 +134,53 @@ retornarValoresArbol(raiz, id){
       cadena += "\"";
       cadena += raiz.carnet;
       cadena+= "\\n"+raiz.nombre;
+      cadena+= "\\n"+raiz.altura;
       cadena += "\" ;";
       if(!(raiz.izquierdo === null) && !(raiz.derecho === null)){
           cadena += " x" + numero + " [label=\"\",width=.1,style=invis];"
           cadena += "\"";
           cadena += raiz.carnet;
           cadena+= "\\n"+raiz.nombre;
+          cadena+= "\\n"+raiz.altura;
           cadena += "\" -> ";
           cadena += this.retornarValoresArbol(raiz.izquierdo, numero)
           cadena += "\"";
           cadena += raiz.carnet;
           cadena+= "\\n"+raiz.nombre;
+          cadena+= "\\n"+raiz.altura;
           cadena += "\" -> ";
           cadena += this.retornarValoresArbol(raiz.derecho, numero)
-          cadena += "{rank=same" + "\"" + raiz.izquierdo.carnet +"\\n"+raiz.izquierdo.nombre+"\"" + " -> " + "\"" + raiz.derecho.carnet +"\\n"+raiz.derecho.nombre+ "\""  + " [style=invis]}; "
+          cadena += "{rank=same" + "\"" + raiz.izquierdo.carnet +"\\n"+raiz.izquierdo.nombre+"\\n"+raiz.izquierdo.altura+"\"" + " -> " + "\"" + raiz.derecho.carnet +"\\n"+raiz.derecho.nombre+"\\n"+raiz.derecho.altura+"\""  + " [style=invis]}; "
       }else if(!(raiz.izquierdo === null) && (raiz.derecho === null)){
           cadena += " x" + numero + " [label=\"\",width=.1,style=invis];"
           cadena += "\"";
           cadena += raiz.carnet;
           cadena+= "\\n"+raiz.nombre;
+          cadena+= "\\n"+raiz.altura;
           cadena += "\" -> ";
           cadena += this.retornarValoresArbol(raiz.izquierdo, numero)
           cadena += "\"";
           cadena += raiz.carnet;
           cadena+= "\\n"+raiz.nombre;
+          cadena+= "\\n"+raiz.altura;
           cadena += "\" -> ";
           cadena += "x" + numero + "[style=invis]";
-          cadena += "{rank=same" + "\"" + raiz.izquierdo.carnet +"\\n"+raiz.izquierdo.nombre +"\"" + " -> " + "x" + numero + " [style=invis]}; "
+          cadena += "{rank=same" + "\"" + raiz.izquierdo.carnet +"\\n"+raiz.izquierdo.nombre+"\\n"+raiz.izquierdo.altura+"\"" + " -> " + "x" + numero + " [style=invis]}; "
       }else if((raiz.izquierdo === null) && !(raiz.derecho === null)){
           cadena += " x" + numero + " [label=\"\",width=.1,style=invis];"
           cadena += "\"";
           cadena += raiz.carnet;
           cadena+= "\\n"+raiz.nombre;
+          cadena+= "\\n"+raiz.altura;
           cadena += "\" -> ";
           cadena += "x" + numero + "[style=invis]";
           cadena += "; \"";
           cadena += raiz.carnet;
           cadena+= "\\n"+raiz.nombre;
+          cadena+= "\\n"+raiz.altura;
           cadena += "\" -> ";
           cadena += this.retornarValoresArbol(raiz.derecho, numero)
-          cadena += "{rank=same" + " x" + numero + " -> \"" + raiz.derecho.carnet + "\\n"+raiz.derecho.nombre+"\"" +  " [style=invis]}; "
+          cadena += "{rank=same" + " x" + numero + " -> \"" + raiz.derecho.carnet + "\\n"+raiz.derecho.nombre+"\\n"+raiz.derecho.altura+"\"" +  " [style=invis]}; "
       }
   }
   return cadena;

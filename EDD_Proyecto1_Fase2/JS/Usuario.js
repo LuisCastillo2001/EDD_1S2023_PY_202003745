@@ -73,6 +73,10 @@ class Bitacora{
         cadena += "\n" + "}"
         return cadena
     }
+
+    Revaluar(bitacora){
+        this.raiz = bitacora
+    }
 }
 
 
@@ -368,45 +372,52 @@ class ArbolNArio{
         this.nodo_creados = 1;
     }
 
-    BuscarCarpeta(carpeta_nueva,lista_carpeta){
-        if (lista_carpeta[1] === "" && this.raiz.primero !== null){
+    BuscarCarpeta(carpeta_nueva, lista_carpeta){
+        //Si la nueva carpeta se creara en la raiz, se buscara si existe o no
+        if(lista_carpeta[1] === "" && this.raiz.primero !== null){
             let aux = this.raiz.primero
-            while (aux){
-                if (aux.valor === carpeta_nueva){
-                    
+            while(aux){
+                if(aux.valor === carpeta_nueva){
                     return 1
                 }
-                
                 aux = aux.siguiente
             }
-
             return 2
         }
-
-        else if(lista_carpeta[1] === "" && this.raiz.primero === null){
+        //Si la nueva carpeta se creara en la raiz pero no existe ninguna carpeta
+        else if (lista_carpeta[1] === "" && this.raiz.primero === null){
             return 5
         }
-        
-        else if (lista_carpeta[1]!== "" && this.raiz.primero === null){
+        //Si la nueva carpeta se creara en algun directorio pero la raiz no posee ninguna carpeta
+        else if(lista_carpeta[1] !== "" && this.raiz.primero === null){
             return 3
         }
-
-        else if (lista_carpeta[1] !== ""  && this.raiz.primero !== null){
-            let aux = this.raiz
+        //Buscamos el directorio padre y revisar si en sus hijos existe la carpeta
+        else if(lista_carpeta[1] !== "" && this.raiz.primero !== null){
+            let aux = this.raiz.primero
             let nivel = lista_carpeta.length
-
-            for (var i = 1; i<nivel ; i++){
-                if (aux !== null){
-                    aux = aux.primero
+            let posicion = 1; 
+            for(var i = 1; i < nivel; i++){
+                if(aux !== null){
+                    while(aux){
+                        if(posicion < lista_carpeta.length && lista_carpeta[posicion] === aux.valor){
+                            posicion++
+                            if(aux.primero !== null && posicion < lista_carpeta.length){
+                                aux = aux.primero
+                            }
+                            break;
+                        }else{
+                            aux = aux.siguiente
+                        }
+                    }
                 }else{
-                    break
+                    break;
                 }
             }
-
-            if (aux !== null){
+            if(aux !== null){
                 aux = aux.primero
-                while (aux){
-                    if (aux.valor === carpeta_nueva){
+                while(aux){
+                    if(aux.valor === carpeta_nueva){
                         return 1
                     }
                     aux = aux.siguiente
@@ -415,9 +426,9 @@ class ArbolNArio{
             }else{
                 return 4
             }
+
         }
     }
-
 
     BuscarCarpeta2(lista_carpeta){
         
@@ -586,6 +597,7 @@ class ArbolNArio{
 
     insertarValor(ruta, carpeta_nueva){
         let lista_carpeta = ruta.split("/")
+        console.log(lista_carpeta)
         let existe_carpeta = this.BuscarCarpeta(carpeta_nueva, lista_carpeta)
         let fecha = obtenerFecha()
         let hora = obtenerHora()
@@ -601,10 +613,12 @@ class ArbolNArio{
                 let nombre = "Copia "+carpeta_nueva
                 this.insertarHijos(nombre, lista_carpeta)
                 InsertarBitacora(accion,archivo,hora,fecha)
+                window.alert("Carpeta creada con éxito")
                 break;
             case 2:
                 this.insertarHijos(carpeta_nueva, lista_carpeta)
                 InsertarBitacora(accion,archivo,hora,fecha)
+                window.alert("Carpeta creada con éxito")
                 break
             case 3:
                 window.alert("La ruta actual no existe")
@@ -616,6 +630,7 @@ class ArbolNArio{
             case 5:
                 this.insertarHijos(carpeta_nueva,lista_carpeta)
                 InsertarBitacora(accion,archivo,hora,fecha)
+                window.alert("Carpeta creada con éxito")
                 break
         }
 
@@ -633,6 +648,7 @@ class ArbolNArio{
             let accion = "Se elimino carpeta"
             let archivo = carpeta_eliminar
             InsertarBitacora(accion,archivo,hora,fecha)
+            console.log("eliminando")
             return
         }
 
@@ -640,6 +656,7 @@ class ArbolNArio{
            
             if (this.raiz.primero.valor === carpeta_eliminar){
                 this.raiz.primero = this.raiz.primero.siguiente
+                window.alert("Carpeta Eliminada con éxito")
                 
             }else{
                 let aux = this.raiz.primero
@@ -659,6 +676,7 @@ class ArbolNArio{
                 let accion = "Se elimino carpeta"
                 let archivo = carpeta_eliminar
                 InsertarBitacora(accion,archivo,hora,fecha)
+                console.log("eliminar")
                 window.alert("Carpeta Eliminada con éxito")
             }
                
@@ -692,6 +710,12 @@ class ArbolNArio{
                 
                 if (aux.primero.valor === carpeta_eliminar){
                     aux.primero = aux.primero.siguiente
+                    let fecha = obtenerFecha()
+                    let hora = obtenerHora()
+                    let accion = "Se elimino carpeta"
+                    let archivo = carpeta_eliminar
+                    InsertarBitacora(accion,archivo,hora,fecha)
+                    window.alert("Carpeta eliminada con éxito")
                    
                 //Seguir aquí y no cambiar nada :3
 
@@ -704,11 +728,18 @@ class ArbolNArio{
                         aux2 = aux2.siguiente;
                     }
                     if (aux2 == null)  {
+                        window.alert("La carpeta no existe")
                         return null;
                     }
                 
                     anterior.siguiente = aux2.siguiente;
+                    let fecha = obtenerFecha()
+                    let hora = obtenerHora()
+                    let accion = "Se elimino carpeta"
+                    let archivo = carpeta_eliminar
+                    InsertarBitacora(accion,archivo,hora,fecha)
                     window.alert("Carpeta eliminada con éxito")
+                    
                 }
 
                 
@@ -867,29 +898,29 @@ class ArbolNArio{
 
 const arbolnario = new ArbolNArio()
 
-    
+const bitacora = new Bitacora()  
 
 function InsertarBitacora(accion,archivo,hora,fecha){
-    if (usuario.bitacora === null){
-        usuario.bitacora = new Bitacora()
-        usuario.bitacora.Insercion(accion,archivo,hora,fecha)
+    
+        bitacora.Insercion(accion,archivo,hora,fecha)
 
-    } else{
-        usuario.bitacora.Insercion(accion,archivo,hora,fecha)
-    }
 }
 
 function agregarVarios(){
     let ruta = document.getElementById("ruta").value
     let carpeta = document.getElementById("carpeta").value
     
+        if (carpeta === ""){
+            window.alert("No se puede insertar carpetas sin nombre")
+            return
+        }
         arbolnario.insertarValor(ruta,carpeta)
-        window.alert("Carpeta creada con éxito")
+        
         
     
     
-    document.getElementById("carpeta").value = "";
-    refrescarArbol()
+        document.getElementById("carpeta").value = "";
+        refrescarArbol()
     
     
 
@@ -903,10 +934,14 @@ if (usuario.nario !== null){
     
     arbolnario.valuar(usuario.nario.raiz)
     console.log("hola")
-    refrescarArbol()
-    
-    
+    refrescarArbol()   
 }
+
+if (usuario.bitacora !== null){
+    bitacora.Revaluar(usuario.bitacora.raiz)
+}
+
+
 
 
 function buscar(nodo, carnet) {
@@ -1001,6 +1036,7 @@ function actualizar (){
     recorridoEnProfundidad(arbolnario.raiz)
     console.log(arbolnario)
     usuario.nario = arbolnario
+    usuario.bitacora = bitacora
     localStorage.setItem("usuario",JSON.stringify(usuario))
     cambio = buscar(arbol.raiz,cart)
     cambio.nario = arbolnario
@@ -1044,7 +1080,7 @@ function obtenerHora(){
 
 function Grafbita(){
     let url = 'https://quickchart.io/graphviz?graph=';
-    let body = usuario.bitacora.Graficar()
+    let body = bitacora.Graficar()
     console.log(body)
     
    

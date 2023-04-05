@@ -4,8 +4,11 @@ function Redirected(){
     if (usuario == "admin"&& contraseña == "admin"){
        
         
-      let localización = window.location.href.replace("Admin.html","Login.html")
-      window.location.href = localización
+        let localización = window.location.href.replace("Login.html","Admin.html")
+
+
+        
+        window.location.href = localización
     }else{
         carnet = parseInt(usuario)
         usuario_log = verificar(carnet,contraseña)
