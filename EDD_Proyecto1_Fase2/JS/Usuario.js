@@ -914,7 +914,9 @@ class ArbolNArio{
             return
         }
         if (carpeta.matriz === null){
-            window.alert("No hay suficientes archivos para mostrar el reporte")
+            window.alert("Esta carpeta, no tiene suficientes archivos, por lo tanto no puede generar este reporte")
+            document.getElementById("matriz").src = "../CSS/archivos.jpg"
+            
             return
         }else{
             let url = 'https://quickchart.io/graphviz?graph=';
