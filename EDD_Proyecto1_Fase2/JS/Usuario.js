@@ -656,6 +656,8 @@ class ArbolNArio{
 
         if (carpeta_eliminar === "/"){
             this.raiz.primero = null
+            this.raiz.matriz = null
+            
             window.alert("La carpeta ha sido eliminada con éxito")
             let fecha = obtenerFecha()
             let hora = obtenerHora()
