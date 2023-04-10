@@ -877,6 +877,7 @@ class ArbolNArio{
                 
                 
                 
+                
             }
             else{
                 carpeta.matriz.insertarArchivo(nombre,1) 
@@ -886,13 +887,20 @@ class ArbolNArio{
                 let accion = "Se subió el archivo"
                 let archivo = nombre
                 InsertarBitacora(accion,archivo,hora,fecha)
+                let url = 'https://quickchart.io/graphviz?graph=';
+                let body = carpeta.matriz.reporte();
+                document.getElementById("matriz").src = url+body
+                
                 
             }
-         
-            
             let url = 'https://quickchart.io/graphviz?graph=';
             let body = carpeta.matriz.reporte();
+            console.log(body)
             document.getElementById("matriz").src = url+body
+                
+         
+            
+            
         } 
     }
 
@@ -901,8 +909,13 @@ class ArbolNArio{
         let ruta = document.getElementById("ruta").value
         let lista_carpeta = ruta.split("/")
         let carpeta = this.BuscarCarpeta2(lista_carpeta)
+        if (carpeta === null){
+            window.alert ("La carpeta no existe")
+            return
+        }
         if (carpeta.matriz === null){
-            document.getElementById("modal2").innerHTML = "No hay suficientes archivos para mostrar el reporte"
+            window.alert("No hay suficientes archivos para mostrar el reporte")
+            return
         }else{
             let url = 'https://quickchart.io/graphviz?graph=';
             let body = carpeta.matriz.reporte();
