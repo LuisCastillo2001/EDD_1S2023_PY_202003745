@@ -29,6 +29,7 @@ constructor(nombre,carnet,contraseña,carpeta_raiz){
     this.altura = 1;
     this.factor_equilibrio = 0;
     this.bitacora = null
+    this.compartidos = null
 }
 }
 

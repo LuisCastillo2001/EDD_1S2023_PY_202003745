@@ -11,6 +11,41 @@ const cart = usuario.carnet
 //bitacora
 
 
+class Nodocompartidos{
+    constructor(propietario,destino,archivo,permiso){
+        this.propietario = propietario
+        this.destino = destino
+        this.archivo = archivo
+        this.permiso = permiso
+        this.siguiente = null
+    }
+
+}
+
+class compartidos {
+    constructor(){
+        this.raiz = null
+    }
+
+    insercion(propietario,destino,archivo,permiso){
+        if (this.raiz == null){
+            this.raiz = new Nodocompartidos(propietario,destino,archivo,permiso)
+        }
+       
+    }
+}
+
+
+
+function insertarCompartidos(compartidos,propietario,destino,archivo,permiso){
+    let aux = compartidos.raiz
+    while (aux.siguiente !== null){
+        aux = aux.siguiente
+    }
+
+    aux.siguiente = new Nodocompartidos(propietario,destino,archivo,permiso)
+}
+
 class Nodobitacora{
     constructor(accion,archivo,hora,fecha){
         this.accion = accion
@@ -21,6 +56,7 @@ class Nodobitacora{
     }
     
 }
+
 
 
 
@@ -259,7 +295,7 @@ class Matriz{
         }
     }
 
-    colocarPermiso(archivo, carnet, permisos){
+    colocarPermiso(archivo, carnet, permisos,nodo){
         /** NOTA: Paso Previo Buscar en AVL si existe el carnet*/
         let nuevaColumna = this.buscarC(carnet)
         let nuevaFila = this.buscarF(archivo)
@@ -276,7 +312,15 @@ class Matriz{
             this.insertarNodo(nuevaColumna.posX, nuevaFila.posY, permisos)
         }
 
-        window.alert("Permiso colocado con éxito")
+        if (nodo.compartidos == null){
+            nodo.compartidos = new compartidos()
+            nodo.compartidos.insercion(usuario.carnet,carnet,archivo,permisos)
+        }
+        else{
+            insertarCompartidos(nodo.compartidos,usuario.carnet,carnet,archivo,permisos)
+        }
+
+        
     }
 
     reporte(){
@@ -342,6 +386,18 @@ class Matriz{
         }
         
 
+    }
+
+
+    recorrer(nodo){
+        let aux = nodo.principal.abajo
+
+        while (aux){
+            this.insertarArchivo(aux.posicion,1)
+            aux = aux.abajo
+        }
+
+        
     }
 }
 
@@ -770,9 +826,34 @@ class ArbolNArio{
     valuar(raiz){
         
         this.raiz = raiz
+        this.recorrido2(this.raiz)
+        console.log(this.raiz)
         
         
     }
+
+
+    recorrido2(nodo) {
+      
+      
+    
+        if (nodo.matriz !== null) {
+            const matriz = new Matriz(nodo.matriz.principal.posicion)
+            matriz.recorrer(nodo.matriz)  
+            nodo.matriz = matriz  
+            console.log(".....")
+            console.log(matriz) 
+
+        }
+        if (nodo.siguiente !== null) {
+          this.recorrido2(nodo.siguiente);
+        }
+      
+        if (nodo.primero !== null) {
+          this.recorrido2(nodo.primero); 
+        }
+      }
+    
 
 
     grafica_arbol(){
@@ -787,7 +868,7 @@ class ArbolNArio{
         return cadena;
     }
 
-    colocar(archivo,carnet,permiso){
+    colocar(archivo,carnet,permiso,nodo){
         let ruta = document.getElementById("ruta").value
         let lista_carpeta = ruta.split("/")
         let carpeta = this.BuscarCarpeta2(lista_carpeta)
@@ -796,7 +877,8 @@ class ArbolNArio{
             
            
             if (carpeta.matriz !== null){
-                carpeta.matriz.colocarPermiso(archivo,carnet,permiso)
+                carpeta.matriz.colocarPermiso(archivo,carnet,permiso,nodo)
+                
                 let url = 'https://quickchart.io/graphviz?graph=';
                 let body = carpeta.matriz.reporte();
                 document.getElementById("matriz").src = url+body
@@ -924,6 +1006,7 @@ class ArbolNArio{
             let url = 'https://quickchart.io/graphviz?graph=';
             let body = carpeta.matriz.reporte();
             document.getElementById("matriz").src = url+body
+            console.log(carpeta.matriz)
         }
     }
     
@@ -972,13 +1055,17 @@ function agregarVarios(){
 if (usuario.nario !== null){
     
     arbolnario.valuar(usuario.nario.raiz)
-    console.log("hola")
-    refrescarArbol()   
+    
+    console.log(arbolnario)
+    refrescarArbol()
+    recorridoEnProfundidad(arbolnario.raiz)
+    
 }
 
 if (usuario.bitacora !== null){
     bitacora.Revaluar(usuario.bitacora.raiz)
 }
+
 
 
 
@@ -1056,11 +1143,12 @@ function Matriz1(){
 
 
 function recorridoEnProfundidad(nodo) {
-    console.log(nodo.valor); 
-  
-
+    console.log("+++")
+    console.log(nodo.valor)
+    console.log("++++")
     if (nodo.matriz !== null) {
-        nodo.matriz = null;
+        nodo.matriz = eliminarReferenciasCirculares(nodo.matriz)
+
     }
     if (nodo.siguiente !== null) {
       recorridoEnProfundidad(nodo.siguiente);
@@ -1099,7 +1187,8 @@ function asignarPermisos(){
         window.alert("El alumno no existe, por lo tanto no se puede otorgar el permiso")
         return
     }
-    arbolnario.colocar(archivo,parseInt(carnet),permisos)
+    arbolnario.colocar(archivo,parseInt(carnet),permisos,existe)
+    window.alert("Permiso colocado con éxito")
     
 }
 
@@ -1136,4 +1225,30 @@ function Grafbita(){
   function onReaderLoad(event){
       base64String = event.target.result
   }
+
+
+function eliminarReferenciasCirculares(objeto, ancestros = []) {
+
+  if (ancestros.includes(objeto)) {
+    return null;
+  }
+
+
+  ancestros.push(objeto);
+
+  
+  for (let propiedad in objeto) {
+    let valor = objeto[propiedad];
+
+ 
+    if (typeof valor === "object" && valor !== null) {
+     
+      objeto[propiedad] = eliminarReferenciasCirculares(valor, [...ancestros]);
+    }
+  }
+
+  return objeto;
+}
+
+
 
