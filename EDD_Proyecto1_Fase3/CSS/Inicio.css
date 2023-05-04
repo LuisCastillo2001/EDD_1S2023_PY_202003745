@@ -1,0 +1,76 @@
+
+
+body{
+    background-color: #033844;
+    overflow: hidden;
+}
+
+
+.menu li{
+    display: inline-block;
+}
+
+h3{
+    
+    text-shadow: 2px 2px 5px blue;
+    color: white;
+    position: relative;
+    animation: mianimacion 4s;
+    animation-delay: 1.5s;
+    animation-fill-mode: forwards;
+    top: 140px;
+}
+
+.contenedor{
+    position: relative;
+    width: 400px;
+    height: 400px;
+    top:150px;
+    
+    animation: mianimacion2 4s;
+    animation-delay: 2.5s;
+    animation-fill-mode: forwards;
+}
+
+.foto{
+    background-image: url("pref.jpg");
+    position: absolute;
+    
+    top:0px;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-attachment: scroll;
+    opacity: 0.5;
+    
+}
+
+a{
+    position: absolute;
+    top:40%;
+    left: 40%;
+    text-decoration: none;
+    width: 120px;
+    height: 40px;
+    text-align:center;
+    padding-top: 5%;
+    background-color: #248FF9;
+    color: white;
+    opacity: 0.9;
+    
+}
+
+a:hover{
+    background-color: #13A31E;
+}
+
+
+@keyframes mianimacion {
+    from{left: 0px;}
+    to{left: 410px;}
+}
+
+@keyframes mianimacion2 {
+    from{left: 0px;}
+    to{left: 330px;}
+}
