@@ -12,11 +12,12 @@ const cart = usuario.carnet
 
 
 class Nodocompartidos{
-    constructor(propietario,destino,archivo,permiso){
+    constructor(propietario,destino,archivo,permiso,ubicacion){
         this.propietario = propietario
         this.destino = destino
         this.archivo = archivo
         this.permiso = permiso
+        this.ubicacion = ubicacion
         this.siguiente = null
     }
 
@@ -29,7 +30,8 @@ class compartidos {
 
     insercion(propietario,destino,archivo,permiso){
         if (this.raiz == null){
-            this.raiz = new Nodocompartidos(propietario,destino,archivo,permiso)
+            let ubicacion = document.getElementById("ruta").value
+            this.raiz = new Nodocompartidos(propietario,destino,archivo,permiso,ubicacion)
         }
        
     }
@@ -37,13 +39,13 @@ class compartidos {
 
 
 
-function insertarCompartidos(compartidos,propietario,destino,archivo,permiso){
+function insertarCompartidos(compartidos,propietario,destino,archivo,permiso,ubicacion){
     let aux = compartidos.raiz
     while (aux.siguiente !== null){
         aux = aux.siguiente
     }
 
-    aux.siguiente = new Nodocompartidos(propietario,destino,archivo,permiso)
+    aux.siguiente = new Nodocompartidos(propietario,destino,archivo,permiso,ubicacion)
 }
 
 class Nodobitacora{
@@ -314,10 +316,12 @@ class Matriz{
 
         if (nodo.compartidos == null){
             nodo.compartidos = new compartidos()
-            nodo.compartidos.insercion(usuario.carnet,carnet,archivo,permisos)
+            let ubicacion = document.getElementById("ruta").value
+            nodo.compartidos.insercion(usuario.carnet,carnet,archivo,permisos,ubicacion)
         }
         else{
-            insertarCompartidos(nodo.compartidos,usuario.carnet,carnet,archivo,permisos)
+            let ubicacion = document.getElementById("ruta").value
+            insertarCompartidos(nodo.compartidos,usuario.carnet,carnet,archivo,permisos,ubicacion)
         }
 
         
@@ -1059,7 +1063,7 @@ if (usuario.nario !== null){
     console.log(arbolnario)
     refrescarArbol()
     recorridoEnProfundidad(arbolnario.raiz)
-    
+    recorrerArbol(arbolnario.raiz)
 }
 
 if (usuario.bitacora !== null){
@@ -1143,9 +1147,6 @@ function Matriz1(){
 
 
 function recorridoEnProfundidad(nodo) {
-    console.log("+++")
-    console.log(nodo.valor)
-    console.log("++++")
     if (nodo.matriz !== null) {
         nodo.matriz = eliminarReferenciasCirculares(nodo.matriz)
 
@@ -1159,7 +1160,23 @@ function recorridoEnProfundidad(nodo) {
     }
   }
 
+
+  function recorrerArbol(nodo) {
+   
+  
+    // Si el nodo tiene hijos, los recorremos y los marcamos como hijos del nodo actual
+    if (nodo.primero) {
+      let hijoActual = nodo.primero;
+      while (hijoActual) {
+        console.log(`- ${hijoActual.valor} es hijo de ${nodo.valor}`);
+        recorrerArbol(hijoActual);
+        hijoActual = hijoActual.siguiente;
+      }
+    }
+  }
+
 function actualizar (){
+    
     recorridoEnProfundidad(arbolnario.raiz)
     console.log(arbolnario)
     usuario.nario = arbolnario

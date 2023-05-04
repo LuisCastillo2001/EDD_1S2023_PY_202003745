@@ -1,0 +1,81 @@
+/* Estilos para el encabezado */
+header {
+    background-color: #4b4b4b;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* Estilos para la sección de chat */
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    border: 1px solid #ccc;
+    overflow-y: scroll;
+    padding: 20px;
+  }
+  
+  .message {
+    display: inline-block;
+    max-width: 80%;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+  
+  .sent {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+    border: 1px solid black;
+  }
+  
+  .received {
+    background-color: #fff;
+    align-self: flex-start;
+    border: 1px solid black;
+  }
+  
+  /* Estilos para el formulario de mensaje */
+  form {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  input[type=text] {
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    width: 75%;
+    border: 1px solid black;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 25%;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  .mensaje {
+    background-color: #DCF8C6;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 14px;
+}
+
+.mensaje p {
+    margin: 0;
+    color: #4F4F4F;
+}
+
+ 

@@ -23,7 +23,7 @@
       </div>
       <div>
         
-        <h3 style="margin-top: 15%;"class="bi bi-person-fill">  Administrador</h3>
+        <h3 style="margin-top: 15%;"class="bi bi-person-fill"> Administrador</h3>
       </div>
      
         <button type="button" class="bi bi-box-arrow-left"class="btn btn-primary"
@@ -31,8 +31,48 @@
      
     </div>
     </div>
-     
+
+    <button type="button" id ="reportes" style = "height: 40px; margin-top: 100px; margin-left: 40%;"class="btn btn-primary boton">
+      Reporte mensajes
+    </button>
+
+    <!--
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+      <div class="modal-content">
+  
+          
+          <div class="modal-header">
+          <h4 class="modal-title">Reporte Mensajes</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+  
+         
+          <div class="modal-body">
+          <img id = "bloques" class = "img-fluid" style="height: 80%; width:80% ; margin-left: 30px;">
+          </div>
+  
+          
+          <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+  
+      </div>
+      </div>
+
+-->
+      
+  </div>
+
+    
     
   <script src="../JS/Admin.js" type="module" ></script>
+  <script>
+    function Salir(){
+    let localización = window.location.href.replace("Admin.html","Login.html")
+  
+    window.location.href = localización
+}
+  </script>
 </body>
 </html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<body>
+   
+    <div class="container">
+        <p></p>
+        <div class="mb-3">
+           
+            <button class="btn btn-outline-secondary" type="button" id="reporte">Mostrar Bloques</button>
+        </div>
+        <div class="mb-3">
+            <span class="input-group-text">Reporte</span>
+            <textarea  readonly="readonly" rows="8" type="text" class="form-control" id="reporte-bloques"></textarea>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-outline-secondary" type="button" id="anterior-bloque">Bloque Anterior</button>
+            <button class="btn btn-outline-secondary" type="button" id="siguiente-bloque">Bloque Siguiente</button> 
+        </div>
+        <div class="mb-3">
+            <span class="input-group-text">Mensaje Desencriptado</span>
+            <textarea  readonly="readonly" rows="8" type="text" class="form-control" id="reporte-mensajes"></textarea>
+        </div>
+        <button type="button" id = "reportes"class="btn btn-primary boton" data-bs-toggle="modal" data-bs-target="#myModal">
+            Reporte mensajes
+        </button>
+    </div>
+
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+        <div class="modal-content">
+    
+            
+            <div class="modal-header">
+            <h4 class="modal-title">Reporte Carpetas</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+    
+           
+            <div class="modal-body">
+            <img id = "bloque" class = "img-fluid" style="height: 500px;">
+            </div>
+    
+            
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+    
+        </div>
+        </div>
+
+
+        
+    </div>
+    
+    <script src="../JS/reporte_admin.js" type="module"></script>
+</body>
+</html>

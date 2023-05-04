@@ -4,9 +4,27 @@ const view = new Uint8Array(buffer)
 for(let i = 0; i < clave.length; i++){
     view[i] = clave.charCodeAt(i)
 }
+console.log(view)
 
-const iv = crypto.getRandomValues(new Uint8Array(16))
+let iv = ""
+
+if(localStorage.getItem("iv")== null){
+    
+    console.log("aqui")
+    iv = crypto.getRandomValues(new Uint8Array(16))
+    localStorage.setItem('iv', JSON.stringify(Array.from(iv)));
+    
+
+
+}else{
+    const ivJson = localStorage.getItem('iv');
+    const ivArray = JSON.parse(ivJson);
+    iv = new Uint8Array(ivArray);
+
+}
+console.log(iv)
 const algoritmo = {name: 'AES-GCM', iv: iv}
+console.log(algoritmo)
 
 async function encriptacion(mensaje){
     const enconder = new TextEncoder()
