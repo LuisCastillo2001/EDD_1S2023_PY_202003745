@@ -78,7 +78,6 @@ class Bloque{
         
         let emisor_mensaje = emisor.carnet
         let receptor_mensaje = document.getElementById("receptor").value
-        console.log(typeof(receptor_mensaje))
         
         let aux = this.inicio
         let contador = 0

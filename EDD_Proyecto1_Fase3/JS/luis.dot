@@ -1,16 +1,1 @@
-digraph ListaEnlazad {node [shape=rectangle, style=filled, fontsize=12];edge [ fontsize=10];
-nodo1[label ="TimeStamp: 03-05-2023::11:43:06\nEmisor: 201944994\nReceptor: 201403877\nMensaje: jj2EdYoQEicffTZ8NN9yu45PKHb+l/yNYS9gLtbE85EEx7HsVbBa1Q==\nPreviousHash: 0000\nHash: 0ea4e813954daf77dd3e758e575c40f718ba8a0c167b761c0c2d980ecdb8d9c3"];
-nodo2[label ="TimeStamp: 03-05-2023::11:43:42\nEmisor: 201944994\nReceptor: 201403877\nMensaje: nzPIYsMBFC0fcjgxK5p2GVkMOGnryXw5D0Lc3Tc4MsjjdcOzmM8=\nPreviousHash: 0ea4e813954daf77dd3e758e575c40f718ba8a0c167b761c0c2d980ecdb8d9c3\nHash: 1afa47a3b0aa54e0a34d738fc64e10f3cf27750bc52d6394d013630d32f3c474"];
-nodo3[label ="TimeStamp: 03-05-2023::11:44:35\nEmisor: 201944994\nReceptor: 199919737\nMensaje: izfIZMsBATsfezUxP5B5raw5KwaWybdlqI58QEXh7w==\nPreviousHash: 1afa47a3b0aa54e0a34d738fc64e10f3cf27750bc52d6394d013630d32f3c474\nHash: bdb90d66ed06d4ed6db071cda6c89247b419ab26d2ea94fc89c79d37719ace0d"];
-nodo4[label ="TimeStamp: 03-05-2023::11:44:48\nEmisor: 201944994\nReceptor: 199919737\nMensaje: ij3Ies8RBTtWajYGh9MvNRU+C3IRjmN2y6+k\nPreviousHash: bdb90d66ed06d4ed6db071cda6c89247b419ab26d2ea94fc89c79d37719ace0d\nHash: a995ef60d205c25fab5ae9f85b7ce8e27c270d9454673f540c44870d31ba0696"];
-nodo5[label ="TimeStamp: 03-05-2023::11:46:58\nEmisor: 201403877\nReceptor: 201944994\nMensaje: lyeNNNoXDIuSfSx9Ot97t50IIjrGq4jV+d8YvuRid6qVQdkW\nPreviousHash: a995ef60d205c25fab5ae9f85b7ce8e27c270d9454673f540c44870d31ba0696\nHash: ddcc6c30d62e96c81a4872fcd4507598eb2b01ef0fcd1e04a1daa310cfe2564c"];
-nodo6[label ="TimeStamp: 03-05-2023::11:47:15\nEmisor: 201403877\nReceptor: 201944994\nMensaje: ijPIcM9SAT5acD50KYwlWqojow8SOHYNCdQMvakrgA==\nPreviousHash: ddcc6c30d62e96c81a4872fcd4507598eb2b01ef0fcd1e04a1daa310cfe2564c\nHash: 22ad85391bc69fa9e75237ec373f3c50fbea98958c7530072554458910292a86"];
-nodo7[label ="TimeStamp: 03-05-2023::11:49:11\nEmisor: 201944994\nReceptor: 201403877\nMensaje: lTvIeMtSBC0ffy90NZh/qIdPfiWw1VJU7RDLFQHlP6Gbt/VHkew=\nPreviousHash: 22ad85391bc69fa9e75237ec373f3c50fbea98958c7530072554458910292a86\nHash: 24289f79470a22b8ffc083aec61a80511071083e60ab756575947f715d6e72ee"];
-nodo1->nodo2
-nodo2->nodo3
-nodo3->nodo4
-nodo4->nodo5
-nodo5->nodo6
-nodo6->nodo7
-nodo7->nodo8
-}
+graph grafoDirigido{ rankdir=LR; node [shape=box]; "/"; node [shape = ellipse] ; layout=neato; "/" -- "Documentos" [label="1" len = 1.5]"/" -- "Fotos" [label="1" len = 1.5]"/" -- "Zoológico" [label="1" len = 1.5]"Fotos" -- "Animales" [label="2" len = 1.5]"Fotos" -- "Selfies" [label="2" len = 1.5]"Animales" -- "Doki" [label="3" len = 1.5]"Animales" -- "Lasky" [label="3" len = 1.5]"Animales" -- "Sam" [label="3" len = 1.5]"Animales" -- "Teddy" [label="3" len = 1.5]}

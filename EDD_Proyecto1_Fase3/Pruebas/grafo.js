@@ -129,5 +129,5 @@ function recorrerArbol(nodo) {
         
       }
     }
-  }
+}
   

@@ -327,14 +327,7 @@ const tablaHash = new TablaHash()
 
 
 
-function onReaderLoad(event){
-  var obj = JSON.parse(event.target.result);
-  for(var i = 0; i < obj.alumnos.length; i++){
-      tablaHash.insertar(obj.alumnos[i].carnet, obj.alumnos[i].nombre, obj.alumnos[i].password)
-  }
-  console.log(tablaHash.tabla)
-  tablaHash.genera_tabla()
-}
+
 
 function busqueda(){
   let carnet = document.getElementById("valor").value;

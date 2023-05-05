@@ -101,10 +101,11 @@ const grafo =  new grafoDirigido()
 
     if (usuario.carpeta !== null){
         console.log(usuario.carpetas.raiz)
-        recorrerArbol(usuario.carpetas.raiz)
+        retornarSiguientes(usuario.carpetas.raiz.valor, usuario.carpetas.raiz.primero)
         usuario.carpetas = grafo
-        console.log(grafo)
         cambiarhash()
+        window.alert("La parte de archivos fue convertida exitósamente :3")
+        
     }
 }
 
@@ -141,3 +142,35 @@ function recorrerArbol(nodo) {
       }
     }
   }
+
+
+ function retornarSiguientes(padre, raiz){ 
+    let hijos = ''
+    let carp_padre = padre
+    let aux = raiz
+    while(aux){
+        hijos += aux.valor + ','
+        aux = aux.siguiente
+    }
+    hijos = hijos.substring(0, hijos.length - 1);
+    if(hijos !== ''){
+        if (padre == "/"){
+            console.log("XDDD")
+            console.log("Padre: " + padre + " \nHijos: " + hijos)
+            grafo.insertarValores(padre, hijos) 
+            
+        }else{
+            let cadena = padre.substring(0,padre.length-1)
+            console.log("cadena:"+cadena)
+            console.log("Padre: " + cadena + " \nHijos: " + hijos)
+            grafo.insertarValores(cadena, hijos)
+        }
+        
+    }
+    aux = raiz
+    while(aux){
+        carp_padre = padre + aux.valor + "/"
+        retornarSiguientes(carp_padre , aux.primero)
+        aux = aux.siguiente
+    }
+}
