@@ -128,9 +128,8 @@ function cambiarhash(){
 }
 
 function recorrerArbol(nodo) {
-    console.log(nodo); // imprimimos el nodo actual
-  
-    // Si el nodo tiene hijos, los recorremos y los marcamos como hijos del nodo actual
+    console.log(nodo);
+    
     if (nodo.primero) {
       let hijoActual = nodo.primero;
       while (hijoActual) {

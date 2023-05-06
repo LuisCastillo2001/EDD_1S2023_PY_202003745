@@ -40,7 +40,7 @@ function grafica(){
         let auxPadre = usuario.carpetas.principal
         let auxHijo = usuario.carpetas.principal
         let peso = 0
-        console.log("aqui?")
+      
         while(auxPadre){
             auxHijo = auxPadre.siguiente
             let profundidad = auxPadre.valor.split('/')

@@ -1,0 +1,14 @@
+body{
+    background-color: antiquewhite;
+}
+
+.btn{
+    background-color:burlywood;
+    color: black;
+    border: 2px solid black;
+
+}
+
+textarea{
+   background-color: green;
+}

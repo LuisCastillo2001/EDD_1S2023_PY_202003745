@@ -257,12 +257,3 @@ function buscarHash(carnet){
 
 
 
-/**
- * Una funcion que lea todo los bloques y simplemente muestre el mensaje
- * al usuario final
- * bloque_actual.valor['receiver'] == 201700918
- * mensaje de  bloque_actual.valor['trasmitter']
- *  ( mensaje_descriptado(carnet, emisor) )
- * 201700918
- * 
- */
