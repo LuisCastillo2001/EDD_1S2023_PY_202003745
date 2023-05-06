@@ -79,7 +79,7 @@ function compartidos1(){
         while (aux){
             document.getElementById("Mostrador").innerHTML += '<div style=" display: inline-block; margin-left:50px">' +
             '<img src="../CSS/archivos.jpg" style="height: 80px; width: 80px; display: inline; ">' +
-            '<p style = "text-align: center width = "50px">'+aux.valor+'</p>'
+            '<p style = "text-align: center width = "50px">'+aux.archivo+'</p>'
             '</div>'
             aux = aux.siguiente   
         }
