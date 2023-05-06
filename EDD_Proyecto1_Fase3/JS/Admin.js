@@ -216,7 +216,7 @@ class TablaHash{
     var salto_html = document.createElement("br")
     divtable.className = "container contenedor"
     tabla.className = "table contenedor-tabla"
-    divtable.innerHTML += "<h3>Listado de alumnos</h3>"
+    divtable.innerHTML += "<h3>Listado de permisos</h3>"
     //Propietario
     var encabezado = document.createElement("tr")
     var celda_encabezado = document.createElement("td");
