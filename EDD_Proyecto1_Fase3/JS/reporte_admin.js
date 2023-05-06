@@ -102,10 +102,7 @@ function reporte_anterior(){
 }
 
 async function mostrar_Mensaje_descriptado(){ 
-    /** if carnet ==  bloque_actual.valor['receiver'] y  bloque_actual.valor['trasmitter'] == emisor
-     * mostrar mensaje
-     * bloque_actual = abloque_actual.siguiente
-     */
+    
     let cadena =  await desencriptacion(bloque_actual.valor['message'])
     document.getElementById("reporte-mensajes").value = cadena
 }

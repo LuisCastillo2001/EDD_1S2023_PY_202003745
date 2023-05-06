@@ -78,7 +78,7 @@ class TablaHash{
       } 
   }
 
-  nueva_capacidad(){ //Sustituir por un algoritmo del siguiente numero primo
+  nueva_capacidad(){ 
       let numero = this.capacidad + 1;
       while (!this.isPrime(numero)) {
         numero++;
@@ -137,12 +137,10 @@ class TablaHash{
       }
   }
 
-  /**
-   * Este codigo es un extra para generar una tabla 
-   */
+ 
 
   genera_tabla() {
-      // Obtener la referencia del elemento body
+   
       var body = document.getElementsByTagName("body")[0];
     
     
@@ -196,12 +194,12 @@ class TablaHash{
 
 
       divtable.appendChild(tabla)
-      // posiciona el <tbody> debajo del elemento <table>
+     
       tabla.appendChild(tblBody);
-      // appends <table> into <body>
+    
       body.appendChild(salto_html);
       body.appendChild(divtable);
-      // modifica el atributo "border" de la tabla y lo fija a "2";
+    
       tabla.setAttribute("border", "2");
   }
 
@@ -294,12 +292,12 @@ class TablaHash{
 
 
     divtable.appendChild(tabla)
-    // posiciona el <tbody> debajo del elemento <table>
+
     tabla.appendChild(tblBody);
-    // appends <table> into <body>
+   
     body.appendChild(salto_html);
     body.appendChild(divtable);
-    // modifica el atributo "border" de la tabla y lo fija a "2";
+    
     tabla.setAttribute("border", "2");
 }
 
