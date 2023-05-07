@@ -101,7 +101,7 @@ const grafo =  new grafoDirigido()
 
     if (usuario.carpeta !== null){
         console.log(usuario.carpetas.raiz)
-        retornarSiguientes(usuario.carpetas.raiz.valor, usuario.carpetas.raiz.primero)
+        insercion_grafo(usuario.carpetas.raiz.valor, usuario.carpetas.raiz.primero)
         usuario.carpetas = grafo
         cambiarhash()
         window.alert("La parte de archivos fue convertida exitósamente :3")
@@ -143,7 +143,7 @@ function recorrerArbol(nodo) {
   }
 
 
- function retornarSiguientes(padre, raiz){ 
+ function insercion_grafo(padre, raiz){ 
     let hijos = ''
     let carp_padre = padre
     let aux = raiz
@@ -169,7 +169,7 @@ function recorrerArbol(nodo) {
     aux = raiz
     while(aux){
         carp_padre = padre + aux.valor + "/"
-        retornarSiguientes(carp_padre , aux.primero)
+        insercion_grafo(carp_padre , aux.primero)
         aux = aux.siguiente
     }
 }
