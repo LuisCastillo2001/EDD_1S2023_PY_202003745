@@ -111,31 +111,7 @@ class TablaHash{
       return nueva_posicion
   }
 
-  busquedaUsuario(carnet){
-      let indice = this.calculoIndice(carnet)
-      if(indice < this.capacidad){
-          try{
-              if(this.tabla[indice] == null){
-                  alert("Bienvenido " + this.tabla[indice].usuario)
-              }else if(this.tabla[indice] != null && this.tabla[indice].carnet == carnet){
-                  alert("Bienvenido " + this.tabla[indice].usuario)
-              }else{
-                  let contador = 1
-                  indice = this.RecalculoIndice(carnet,contador)
-                  while(this.tabla[indice] != null){
-                      contador++
-                      indice = this.RecalculoIndice(carnet, contador)
-                      if(this.tabla[indice].carnet == carnet){
-                          alert("Bienvenido " + this.tabla[indice].usuario)
-                          return
-                      }
-                  }
-              }
-          }catch(err){
-              console.log("Hubo un error en busqueda")
-          }
-      }
-  }
+  
 
  
 
@@ -327,10 +303,7 @@ const tablaHash = new TablaHash()
 
 
 
-function busqueda(){
-  let carnet = document.getElementById("valor").value;
-  tablaHash.busquedaUsuario(carnet)
-}
+
 
 
 function recorridoInorden(raiz){
